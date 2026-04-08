@@ -1,0 +1,14 @@
+# 파일: kustomization.yaml
+# 역할: kustomize 적용 진입점(`k apply -k k8s/gateway`) - 리소스 적용 순서 관리
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - 00-gatewayclass.yaml
+  - 10-gateway.yaml
+  - 20-client-traffic-policy.yaml
+  - 25-referencegrant-uplus-mready-model.yaml
+  - 26-httproute-test-api1.yaml
+  - 27-httproute-gpt-oss-120b.yaml
+  - 30-ai-route.yaml
+  - 40-ai-backend.yaml

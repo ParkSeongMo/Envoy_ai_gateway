@@ -1,0 +1,13 @@
+# 파일: 10-gateway.yaml
+# 역할: Gateway 리스너(HTTP/80) 생성 및 라우트 연결 대상
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: psm-llm-gateway
+  namespace: envoy-ai-gateway-system
+spec:
+  gatewayClassName: psm-llm-gateway
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80

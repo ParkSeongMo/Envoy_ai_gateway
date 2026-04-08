@@ -1,0 +1,14 @@
+# 최소 기본값(사내 K8s 시작점)
+endpointConfig:
+  rootPrefix: "/"
+  openai: ""
+
+controller:
+  # 운영 환경에서는 반드시 안전한 랜덤 값으로 변경하세요.
+  mcp:
+    sessionEncryption:
+      seed: "CHANGE-ME-IN-PROD"
+
+envoyGateway:
+  namespace: envoy-gateway-system
+

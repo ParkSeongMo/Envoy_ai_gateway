@@ -1,0 +1,34 @@
+# 파일: 27-httproute-gpt-oss-120b.yaml
+# 역할: /gpt-oss-120b/... 로 들어온 요청의 경로 프리픽스를 제거해 백엔드에는 /v1/chat/completions 형태로 전달
+#
+# 예: /gpt-oss-120b/v1/chat/completions → URLRewrite 후 /v1/chat/completions
+
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: psm-llm-gateway-gpt-oss-120b
+  namespace: envoy-ai-gateway-system
+spec:
+  parentRefs:
+    - name: psm-llm-gateway
+      kind: Gateway
+      group: gateway.networking.k8s.io
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /gpt-oss-120b
+          headers:
+            - type: Exact
+              name: mlp-model-name
+              value: gpt-oss-120b
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /
+      backendRefs:
+        - name: gpt-oss-120b
+          namespace: uplus-mready-model
+          port: 80

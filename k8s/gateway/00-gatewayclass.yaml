@@ -1,0 +1,8 @@
+# 파일: 00-gatewayclass.yaml
+# 역할: GatewayClass 정의(Envoy Gateway 컨트롤러에 연결)
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: psm-llm-gateway
+spec:
+  controllerName: gateway.envoyproxy.io/gatewayclass-controller

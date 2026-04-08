@@ -1,0 +1,25 @@
+# 파일: 40-ai-backend.yaml
+# 역할: AIServiceBackend + Backend로 업스트림(모델/서비스) 정의
+apiVersion: aigateway.envoyproxy.io/v1beta1
+kind: AIServiceBackend
+metadata:
+  name: psm-llm-gateway-gpt-oss-120b
+  namespace: envoy-ai-gateway-system
+spec:
+  schema:
+    name: OpenAI
+  backendRef:
+    name: psm-llm-gateway-gpt-oss-120b
+    kind: Backend
+    group: gateway.envoyproxy.io
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  name: psm-llm-gateway-gpt-oss-120b
+  namespace: envoy-ai-gateway-system
+spec:
+  endpoints:
+    - fqdn:
+        hostname: gpt-oss-120b.uplus-mready-model.svc.cluster.local
+        port: 80

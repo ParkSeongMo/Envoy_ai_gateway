@@ -1,0 +1,20 @@
+# 파일: 30-ai-route.yaml
+# 역할: 요청 매칭 규칙과 AI 백엔드 라우팅(AIGatewayRoute) 정의
+apiVersion: aigateway.envoyproxy.io/v1beta1
+kind: AIGatewayRoute
+metadata:
+  name: psm-llm-gateway-routes
+  namespace: envoy-ai-gateway-system
+spec:
+  parentRefs:
+    - name: psm-llm-gateway
+      kind: Gateway
+      group: gateway.networking.k8s.io
+  rules:
+    - matches:
+        - headers:
+            - type: Exact
+              name: mlp-model-name
+              value: gpt-oss-120b
+      backendRefs:
+        - name: psm-llm-gateway-gpt-oss-120b

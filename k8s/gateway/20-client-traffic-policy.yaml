@@ -1,0 +1,14 @@
+# 파일: 20-client-traffic-policy.yaml
+# 역할: 클라이언트 ↔ Gateway 연결 정책(버퍼/제한 등) 설정
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: ClientTrafficPolicy
+metadata:
+  name: psm-llm-gateway-client-traffic
+  namespace: envoy-ai-gateway-system
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: psm-llm-gateway
+  connection:
+    bufferLimit: 50Mi

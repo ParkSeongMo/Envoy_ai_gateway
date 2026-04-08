@@ -1,0 +1,17 @@
+# 파일: 25-referencegrant-uplus-mready-model.yaml
+# 역할: envoy-ai-gateway-system의 HTTPRoute가 uplus-mready-model 네임스페이스의 모든 Service를 참조할 수 있게 허용
+# (spec.to 에 name 미지정 시, 이 Grant가 있는 네임스페이스의 해당 kind 전체가 대상)
+
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: allow-envoy-ai-gateway-system-httproute-uplus-mready-model
+  namespace: uplus-mready-model
+spec:
+  from:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      namespace: envoy-ai-gateway-system
+  to:
+    - group: ""
+      kind: Service
