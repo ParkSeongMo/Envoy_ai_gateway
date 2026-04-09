@@ -1,0 +1,24 @@
+# 파일: 15-securitypolicy-extauth.yaml
+# 역할: psm-llm-gateway 전체 트래픽(하위 모든 HTTPRoute)에 외부 인증(extAuth) 적용
+# 인증 백엔드: uplus-mready-model/http-ext-auth:8080 (path: /auth)
+# 전달 헤더: x-api-key
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: psm-llm-gateway-extauth
+  namespace: envoy-ai-gateway-system
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: psm-llm-gateway
+  extAuth:
+    # HTTP ext auth 기본 전달 헤더에 x-api-key가 없어 명시 필요
+    headersToExtAuth:
+      - x-api-key
+    http:
+      backendRefs:
+        - name: http-ext-auth
+          namespace: uplus-mready-model
+          port: 8080
+      path: /auth

@@ -5,12 +5,15 @@
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: ReferenceGrant
 metadata:
-  name: allow-envoy-ai-gateway-system-httproute-uplus-mready-model
+  name: allow-gateway
   namespace: uplus-mready-model
 spec:
   from:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
+      namespace: envoy-ai-gateway-system
+    - group: gateway.envoyproxy.io
+      kind: SecurityPolicy
       namespace: envoy-ai-gateway-system
   to:
     - group: ""
