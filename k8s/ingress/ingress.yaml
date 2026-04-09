@@ -1,0 +1,22 @@
+#
+# 파일: ingress.yaml
+# 역할: NGINX Ingress로 외부 요청을 Envoy AI Gateway 데이터플레인 Service로 전달
+#
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: envoy-gw-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: envoy-envoy-ai-gateway-system-psm-llm-gateway-76ed453b
+            port:
+              number: 80
+        path: /gateway/ai/parksmo(/|$)(.*)
+        pathType: ImplementationSpecific
