@@ -5,4 +5,4 @@ kind: GatewayClass
 metadata:
   name: psm-llm-gateway
 spec:
-  controllerName: gateway.envoyproxy.io/gatewayclass-controller
+  controllerName: gateway.envoyproxy.io/ai-gatewayclass-controller
